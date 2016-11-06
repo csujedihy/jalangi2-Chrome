@@ -8,6 +8,14 @@ import struct
 import sys
 import threading
 import Queue
+import random
+import string
+import base64
+import json
+from StringIO import StringIO
+from subprocess import CalledProcessError, Popen, PIPE, STDOUT
+
+p = None
 
 # On Windows, the default I/O mode is O_TEXT. Set this to O_BINARY
 # to avoid unwanted modifications of the input/output streams.
@@ -40,7 +48,19 @@ def read_thread_func(queue):
       queue.put(text)
     else:
       # In headless mode just send an echo message back.
-      send_message('{"echo": %s}' % text)
+      # if p:
+      #   p.terminate()
+      #   p = None
+      fname = "./analysis-script/" 
+      fname += ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
+      fname += ".js"
+      f = open(fname, 'w')
+      base64Decoded = base64.b64decode(text[9:-2])
+      f.write(base64Decoded)
+      f.close()
+      # cmd = "mitmdump -p 9999 --anticache -s \"jalangi2/scripts/proxy.py --inlineIID --inlineSource --analysis analysis-script/" + fname + "\""
+      # p = subprocess.Popen(cmd)
+      send_message('{"status": 200}')
 
 def Main():
   read_thread_func(None)

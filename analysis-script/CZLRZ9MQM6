@@ -16,7 +16,8 @@ function(request, sender, sendResponse) {
               "from a content script:" + sender.tab.url :
               "from the extension");
   console.log(request.code);
-  chrome.runtime.sendNativeMessage('cn.c2fun.jalangi2', { code: request.code }, function(nativeResponse) {
+  chrome.runtime.sendNativeMessage('cn.c2fun.jalangi2', { code: request.code },
+    function(nativeResponse) {
       console.log("Received " + nativeResponse.status);
       sendResponse({cmd: "200"});
     });

@@ -42,7 +42,7 @@ function listen() {
 	  mode: "javascript",
 	  matchBrackets: true
 	});
-	
+
 	var editor1 = CodeMirror(document.getElementById("editor1"), {
 	  lineNumbers: true,
 	  mode: "text",
@@ -66,9 +66,8 @@ function listen() {
 
 
 	actionButton.addEventListener("click", function(){
-		chrome.runtime.sendMessage({greeting: "hello"}, function(response) {
-			console.log(response.farewell);
-			alert(response.content);
+		chrome.runtime.sendMessage({code: btoa(editor.getValue())}, function(response) {
+			console.log(response.cmd);
 		});
 	});
 
