@@ -1,0 +1,76 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="./assets/material.min.css">
+	<link rel="stylesheet" href="panel.css">
+
+	<script src="./assets/material.min.js"></script>
+  	<script src="libs/jquery.js"></script>
+	<script src="panel.js"></script>
+	<script type='text/javascript' src='libs/resizable-tables.js'></script>
+
+	<script src="codemirror/lib/codemirror.js"></script>
+	<link rel="stylesheet" href="codemirror/lib/codemirror.css">
+	<script src="codemirror/mode/javascript/javascript.js"></script>
+
+
+
+</head>
+<body>
+
+	<!-- Always shows a header, even in smaller screens. -->
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout-title">Dynamic Taint Analysis for Javascript</span>
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation. We hide it in small screens. -->
+
+        </div>
+      </header>
+
+      <main class="mdl-layout__content">
+        <div class="page-content">
+        		<div class="mdl-grid">
+                	<div class="mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--8-col" style="padding: 8px;">
+                	<button id="clearButton" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect">Clear</button>
+                	<button id="reloadButton" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect">Reload</button>
+                	</div>
+
+                	<table width="100%" align="center">
+					  <tr>
+					  	<th>Code</th>
+					  	<th>Result</th>
+					  </tr>
+					  <tr>
+					    <td width="50%">
+					        <div id="editor">
+		                		<script src="edit.js"></script>
+							</div>
+					    </td>
+					    <td width="50%">
+					        <div id="editor1">
+								<script src="edit1.js"></script>
+							</div>
+					    </td>
+					  </tr>
+					</table>
+
+                	
+          				
+      				<p align="center">
+	                <button id="actionButton" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect">Start</button>
+					</p>
+  				</div>
+
+
+        
+        <!-- Your content goes here -->
+
+        </div>
+      </main>
+    </div>
+</body>
+</html>
