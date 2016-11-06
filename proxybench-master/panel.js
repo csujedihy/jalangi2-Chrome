@@ -37,7 +37,18 @@ function reloadPage() {
 
 var startTimeInSec = 0.0, ttfbTime = 0.0;
 function listen() {
-  
+  	var editor = CodeMirror(document.getElementById("editor"), {
+	  lineNumbers: true,
+	  mode: "javascript",
+	  matchBrackets: true
+	});
+	
+	var editor1 = CodeMirror(document.getElementById("editor1"), {
+	  lineNumbers: true,
+	  mode: "text",
+	  matchBrackets: false
+	});
+
 	var actionButton = document.querySelector('#actionButton');
 	var clearButton = document.querySelector('#clearButton');
 	var reloadButton = document.querySelector('#reloadButton');
@@ -55,9 +66,9 @@ function listen() {
 
 
 	actionButton.addEventListener("click", function(){
-		chrome.devtools.network.getHAR(function (log) {
-			
-
+		chrome.runtime.sendMessage({greeting: "hello"}, function(response) {
+			console.log(response.farewell);
+			alert(response.content);
 		});
 	});
 
