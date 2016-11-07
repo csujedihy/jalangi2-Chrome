@@ -12,6 +12,7 @@
   "scripts": ["background.js"]
   },
   "permissions": [
-    "nativeMessaging"
+    "nativeMessaging",
+    "proxy"
   ]
 }

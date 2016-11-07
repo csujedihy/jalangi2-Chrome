@@ -12,7 +12,12 @@ import random
 import string
 import base64
 import json
-from StringIO import StringIO
+import shlex
+import os
+
+import traceback
+import logging
+
 from subprocess import CalledProcessError, Popen, PIPE, STDOUT
 
 p = None
@@ -32,6 +37,7 @@ def send_message(message):
   sys.stdout.flush()
 # Thread that reads messages from the webapp.
 def read_thread_func(queue):
+  global p
   message_number = 0
   while 1:
     # Read the message length (first 4 bytes).
@@ -48,19 +54,25 @@ def read_thread_func(queue):
       queue.put(text)
     else:
       # In headless mode just send an echo message back.
-      # if p:
-      #   p.terminate()
-      #   p = None
+      if p:
+        p.terminate()
+        p = None
       fname = "./analysis-script/" 
-      fname += ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
+      filename = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
+      fname += filename
       fname += ".js"
       f = open(fname, 'w')
       base64Decoded = base64.b64decode(text[9:-2])
       f.write(base64Decoded)
       f.close()
-      # cmd = "mitmdump -p 9999 --anticache -s \"jalangi2/scripts/proxy.py --inlineIID --inlineSource --analysis analysis-script/" + fname + "\""
-      # p = subprocess.Popen(cmd)
-      send_message('{"status": 200}')
+      try:
+        send_message('{"status": "' + filename + '"}')
+      except Exception as e:
+        logName = "log.txt"
+        logf = open(logName, 'w')
+        logf.write(str(e))
+        logf.close()
+        send_message('{"status": 300}')
 
 def Main():
   read_thread_func(None)

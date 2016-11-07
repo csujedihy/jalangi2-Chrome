@@ -27,7 +27,7 @@ function toDecimal2(x) {
     return s;  
 }  
 
-function reloadPage() {
+function setProxyAndReloadPage() {
 	var options = {
 	    ignoreCache: true,
 	    userAgent: undefined
@@ -55,24 +55,19 @@ function listen() {
 	var bodyDom = document.querySelector('#detailBody');
 	   	
 	clearButton.addEventListener("click", function() {
-		bodyDom.innerHTML = "";
+		chrome.runtime.sendMessage({cmd: "resetproxy"}, function(response) {
+			console.log(response.cmd);
+		});
 	});
 
 	reloadButton.addEventListener("click", function() {
-	   	bodyDom.innerHTML = "";
 		reloadPage();
 	});
-
-
 
 	actionButton.addEventListener("click", function(){
 		chrome.runtime.sendMessage({code: btoa(editor.getValue())}, function(response) {
 			console.log(response.cmd);
 		});
-	});
-
-	chrome.devtools.network.onRequestFinished.addListener(function(request) {
-		
 	});
 
   	console.log('listen');
