@@ -17,20 +17,19 @@ function(request, sender, sendResponse) {
               "from the extension");
   console.log(request.code);
   if (request.cmd != undefined) {
-    console.log("got cmd");
-    console.log(request.cmd);
-    var config = {
-        mode: "system"
-      };
-      chrome.proxy.settings.set(
-          {value: config, scope: 'regular'},
-          function() {});
+    if (request.cmd == "run") {
+      chrome.tabs.executeScript({
+        file: 'content_injector.js'
+      });
+    } else if (request.cmd == "resetproxy") {
+      var config = {
+          mode: "system"
+        };
+      chrome.proxy.settings.set({value: config, scope: 'regular'}, function() {});
+      console.log("set regular proxy!");
+    }
   } else {
-    chrome.runtime.sendNativeMessage('cn.c2fun.jalangi2', { code: request.code }, function(nativeResponse) {
-      console.log(nativeResponse);
-      console.log("Received " + nativeResponse.status);
-      tellMITM(nativeResponse.status, function() {
-        var config = {
+      var config = {
         mode: "fixed_servers",
         rules: {
           singleProxy: {
@@ -40,12 +39,9 @@ function(request, sender, sendResponse) {
           }
         }
       };
-      chrome.proxy.settings.set(
-          {value: config, scope: 'regular'},
-          function() {});
-        sendResponse({cmd: "200"});
-      });
-    });
+
+      chrome.proxy.settings.set({value: config, scope: 'regular'}, function() {});
+      console.log("proxy settle");
   }
 });
 

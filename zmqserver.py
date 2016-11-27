@@ -10,7 +10,7 @@ class SimpleEcho(WebSocket):
     def handleMessage(self):
         # echo message back to client
         print self.data
-        cmd = 'mitmdump -p 9999 --anticache -s "jalangi2/scripts/proxy.py --inlineIID --inlineSource --analysis analysis-script/' + self.data + '.js"'
+        cmd = 'mitmdump -p 9999 --anticache -s "jalangi2/scripts/proxy.py --inlineIID --inlineSource'
         p = Popen(shlex.split(cmd), stdout=PIPE, stdin=PIPE, stderr=PIPE, shell=False)
         self.sendMessage(self.data)
 

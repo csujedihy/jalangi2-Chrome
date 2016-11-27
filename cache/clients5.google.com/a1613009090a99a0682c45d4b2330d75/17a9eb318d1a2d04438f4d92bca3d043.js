@@ -1,1 +1,0 @@
-gbar._drt.dn()

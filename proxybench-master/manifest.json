@@ -8,11 +8,23 @@
   [
     "*"
   ],
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["injector.js"],
+      "run_at": "document_start"
+    }
+  ],
   "background": {
   "scripts": ["background.js"]
   },
   "permissions": [
+    "storage",
     "nativeMessaging",
-    "proxy"
+    "proxy",
+    "activeTab",
+    "http://*/",
+    "https://*/",
+    "tabs"
   ]
 }

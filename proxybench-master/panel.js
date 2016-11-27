@@ -51,22 +51,28 @@ function listen() {
 
 	var actionButton = document.querySelector('#actionButton');
 	var clearButton = document.querySelector('#clearButton');
-	var reloadButton = document.querySelector('#reloadButton');
+	var refreshButton = document.querySelector('#refreshButton');
 	var bodyDom = document.querySelector('#detailBody');
-	   	
-	clearButton.addEventListener("click", function() {
+
+	refreshButton.addEventListener("click", function() {
 		chrome.runtime.sendMessage({cmd: "resetproxy"}, function(response) {
-			console.log(response.cmd);
+			setProxyAndReloadPage();
 		});
 	});
 
-	reloadButton.addEventListener("click", function() {
-		reloadPage();
+
+	clearButton.addEventListener("click", function() {
+		chrome.runtime.sendMessage({cmd: "resetproxy"}, function(response) {
+			console.log(response);
+		});
 	});
 
 	actionButton.addEventListener("click", function(){
-		chrome.runtime.sendMessage({code: btoa(editor.getValue())}, function(response) {
-			console.log(response.cmd);
+		chrome.runtime.sendMessage({code: ""}, function(response) {
+			
+		});
+		chrome.storage.sync.set({'jalangiInjector': editor.getValue()}, function() {
+  			console.log('storage saved');
 		});
 	});
 

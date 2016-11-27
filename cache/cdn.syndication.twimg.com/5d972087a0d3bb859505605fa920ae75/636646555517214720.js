@@ -1,1 +1,0 @@
-/**/__twttr.callbacks.tl_i0_636646555517214720_new({"headers":{"status":200,"maxPosition":"794263232445677568","minPosition":"794263232445677568","xPolling":30,"time":1478504475},"config":{"doNotTrack":false,"theme":"light","height":400,"linkColor":"#FA743E"},"body":""});

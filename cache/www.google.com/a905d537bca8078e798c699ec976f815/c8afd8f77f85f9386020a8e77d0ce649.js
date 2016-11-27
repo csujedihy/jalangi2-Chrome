@@ -1,1 +1,0 @@
-return rwt(this,'','','','10','AFQjCNF4MFNnDhJr4A1MG3hHz49yDfS27w','TE1Y6HuEZ1AsxiFfDqv9Pw','0ahUKEwjyh5SskpbQAhUp64MKHUWgDlIQIAhOMAk','','',event)
